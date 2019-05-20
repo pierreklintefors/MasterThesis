@@ -102,8 +102,8 @@ sfInit(parallel = T, nCores, type="SOCK")
 sfExport("BF_HDI_seqFun","xpop", "ypop", 'Max_n', 'Min_n', 'rscale', 'bound', 'SD')
 
 
-# execute function for number of sims (OBS this will take along time depending on the used effect size and number of cores in computer
-t <- sfClusterApplyLB(1:nSims, function(i) BF_HDI_seqFun(xpop, ypop, Max_n, Min_n, rscale, bound, SD))
+# execute function for number of sims (OBS this will take along time depending on the used effect size and number of cores in computer)
+t <- sfClusterApplySR(1:nSims, function(i) BF_HDI_seqFun(xpop, ypop, Max_n, Min_n, rscale, bound, SD), perUpdate = NULL)
 
 tally=matrix(unlist(t),nrow = nSims , ncol = 4,byrow=TRUE)
 tally[,1]=ifelse(tally[,2]==0,Max_n,tally[,1])
